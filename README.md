@@ -45,6 +45,3 @@ chr1    101    C    T
 chr1    108    G    A
 chr2    505    T    C
 ```
-- For forward reads, the tool recalibrates positions matching `C/T`.
-- For reverse reads, the tool recalibrates positions matching `G/A`.
-- Transversions are ignored.
