@@ -3,10 +3,10 @@ Tool to recalibrate (downgrade) base quality scores in a strand-aware manner for
 
 ## Purpose
 In single-stranded ancient DNA libraries, post-mortem deamination (C &rarr; T) is strand-specific. 
-`baSSdrop` targets these specific transition types at a user-defined set of SNP coordinates. It identifies bases that match the expected strand-specific damage profile, and downgrades their base quality score to **0** (`!`).
+`baSSdrop` targets these specific transition types at a user-defined set of SNP coordinates. It identifies bases that match the expected strand-specific damage profile, and downgrades their base quality score to **0** (`!`). This keeps a substantial amount of data that is lost in comparison to trimming bases from each end of a fragment to remove damage.
 
 ## Amended Version from Original by pontussk
-This version allows users to define  how many bases from the start and end of the BAM read string should be targeted for recalibration. 
+This version allows users to define how many bases from the start and end of the BAM read string should C>T transitions be targeted for recalibration, instead of removing them across the whole fragment which is overly conservative.
 
 ## Installation
 First, clone the repository to your local machine:
