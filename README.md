@@ -22,10 +22,10 @@ g++ -O3 baSSdrop.cpp -o baSSdrop
 ```
 
 ## Usage
-The tool reads SAM text from `stdin` and writes SAM text to `stdout`.
+The tool reads SAM text from `stdin` and writes SAM text to `stdout`. It is typically used by piping `samtools view` into it:
 
 ```bash
-./baSSdrop <path_to_SNP_file> <bases_from_start> <bases_from_end>
+samtools view -h input.bam | ./baSSdrop <path_to_SNP_file> <bases_from_start> <bases_from_end> | samtools view -bS - > output_recalibrated.bam
 ```
 
 ### Parameters
