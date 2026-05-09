@@ -67,7 +67,7 @@ To verify a successful installation and check functionality using the provided t
    - All other bases should retain their original quality (`1`).
 
 ## Input SNP File Format
-The file should be tab- or space-separated and contain at least 4 columns, can add all known SNPs not just transitions, the program will only focus on the appropriate type of variant to downgrade base quality.
+The file should be tab- or space-separated and contain at least 4 columns. All known SNPs (e.g. 1240K) can be included, the program will only focus on the appropriate type of variant to downgrade base quality.
 ```text
 chr1    101    C    T
 chr1    108    G    A
