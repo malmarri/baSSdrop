@@ -11,6 +11,13 @@ In single-stranded ancient DNA libraries, post-mortem deamination (C &rarr; T) i
 ## Amended Version from Original by pontussk
 This version allows users to define  how many bases from the start and end of the BAM read string should be targeted for recalibration. 
 
+## Installation
+First, clone the repository to your local machine:
+```bash
+git clone https://github.com/malmarri/baSSdrop.git
+cd baSSdrop
+```
+
 ## Compilation
 Compile the tool using any standard C++ compiler:
 ```bash
