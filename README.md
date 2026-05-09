@@ -9,7 +9,7 @@ In single-stranded ancient DNA libraries, post-mortem deamination (C &rarr; T) i
 `baSSdrop` targets these specific transition types at a user-defined set of SNP coordinates. It identifies bases that *could* be biological variants but match the expected strand-specific damage profile, and downgrades their base quality score to **0** (`!`). This prevents false-positive variant calling while preserving transversions and transitions in the middle of reads where damage is less frequent.
 
 ## Amended Version from Original by pontussk
-This version allows users to define exactly how many bases from the start and end of the BAM read string should be targeted for recalibration. This ensures that the protected center of the DNA molecule remains untouched.
+This version allows users to define  how many bases from the start and end of the BAM read string should be targeted for recalibration. 
 
 ## Compilation
 Compile the tool using any standard C++ compiler:
