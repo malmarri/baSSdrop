@@ -43,19 +43,25 @@ samtools view -h input.bam | \
 ```
 
 ## Testing
-To verify a successful compilation and check functionality using the provided test data:
+To verify a successful installation and check functionality using the provided test data:
 
-1. **Compile:**
+1. **Clone and Enter Directory:**
+   ```bash
+   git clone https://github.com/malmarri/baSSdrop.git
+   cd baSSdrop
+   ```
+
+2. **Compile:**
    ```bash
    g++ -O3 baSSdrop.cpp -o baSSdrop
    ```
 
-2. **Run Test:**
+3. **Run Test:**
    ```bash
    ./baSSdrop test_data/known_snps.txt 5 2 < test_data/test.sam
    ```
 
-3. **Verify Output:**
+4. **Verify Output:**
    - In `read1_forward`, the quality at position 101 (2nd base) should be `!` (downscaled).
    - In `read2_reverse`, the quality at position 118 (19th base) should be `!` (downscaled).
    - All other bases should retain their original quality (`1`).
