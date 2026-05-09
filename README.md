@@ -33,6 +33,14 @@ samtools view -h input.bam | ./baSSdrop <path_to_SNP_file> <bases_from_start> <b
 2. **`<bases_from_start>`**: Number of bases from the 5' end of the **BAM sequence string** to recalibrate.
 3. **`<bases_from_end>`**: Number of bases from the 3' end of the **BAM sequence string** to recalibrate.
 
+## Input SNP File Format
+The file should be tab- or space-separated and contain at least 4 columns. All known SNPs (e.g. 1240K) can be included, the program will only focus on the appropriate type of variant to downgrade base quality.
+```text
+chr1    101    C    T
+chr1    108    G    A
+chr2    505    T    C
+```
+
 ## Pipeline Example
 To recalibrate damage-prone transitions only within the terminal **5 bp** and **5 bp** of each read:
 
@@ -65,11 +73,3 @@ To verify a successful installation and check functionality using the provided t
    - In `read1_forward`, the quality at position 101 (2nd base) should be `!` (downscaled).
    - In `read2_reverse`, the quality at position 118 (19th base) should be `!` (downscaled).
    - All other bases should retain their original quality (`1`).
-
-## Input SNP File Format
-The file should be tab- or space-separated and contain at least 4 columns. All known SNPs (e.g. 1240K) can be included, the program will only focus on the appropriate type of variant to downgrade base quality.
-```text
-chr1    101    C    T
-chr1    108    G    A
-chr2    505    T    C
-```
