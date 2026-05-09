@@ -1,0 +1,4 @@
+chr1	101	C	T
+chr1	110	C	T
+chr1	108	G	A
+chr1	118	G	A

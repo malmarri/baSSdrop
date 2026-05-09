@@ -38,6 +38,24 @@ samtools view -h input.bam | \
   samtools view -bS - > output_recalibrated.bam
 ```
 
+## Testing
+To verify a successful compilation and check functionality using the provided test data:
+
+1. **Compile:**
+   ```bash
+   g++ -O3 baSSdrop.cpp -o baSSdrop
+   ```
+
+2. **Run Test:**
+   ```bash
+   ./baSSdrop test_data/known_snps.txt 5 2 < test_data/test.sam
+   ```
+
+3. **Verify Output:**
+   - In `read1_forward`, the quality at position 101 (2nd base) should be `!` (downscaled).
+   - In `read2_reverse`, the quality at position 118 (19th base) should be `!` (downscaled).
+   - All other bases should retain their original quality (`1`).
+
 ## Input SNP File Format
 The file should be tab- or space-separated and contain at least 4 columns:
 ```text
