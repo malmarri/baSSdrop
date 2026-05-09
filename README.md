@@ -30,11 +30,11 @@ The tool reads SAM text from `stdin` and writes SAM text to `stdout`.
 3. **`<bases_from_end>`**: Number of bases from the 3' end of the **BAM sequence string** to recalibrate.
 
 ## Pipeline Example
-To recalibrate damage-prone transitions only within the terminal **5 bp** and **2 bp** of each read:
+To recalibrate damage-prone transitions only within the terminal **5 bp** and **5 bp** of each read:
 
 ```bash
 samtools view -h input.bam | \
-  ./baSSdrop known_snps.txt 5 2 | \
+  ./baSSdrop known_snps.txt 5 5 | \
   samtools view -bS - > output_recalibrated.bam
 ```
 
