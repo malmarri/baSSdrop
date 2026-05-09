@@ -2,10 +2,7 @@
 Tool to recalibrate (downgrade) base quality scores in a strand-aware manner for single-stranded ancient DNA library-derived data.
 
 ## Purpose
-In single-stranded ancient DNA libraries, post-mortem deamination (C &rarr; T) is strand-specific. When these reads are mapped to a reference:
-- Reads from the **forward strand** show biochemical damage as **C &rarr; T** transitions.
-- Reads from the **reverse strand** (reverse-complemented by BWA) show damage as **G &rarr; A** transitions.
-
+In single-stranded ancient DNA libraries, post-mortem deamination (C &rarr; T) is strand-specific. 
 `baSSdrop` targets these specific transition types at a user-defined set of SNP coordinates. It identifies bases that match the expected strand-specific damage profile, and downgrades their base quality score to **0** (`!`).
 
 ## Amended Version from Original by pontussk
