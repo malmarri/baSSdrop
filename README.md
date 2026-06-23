@@ -70,6 +70,6 @@ To verify a successful installation and check functionality using the provided t
    ```
 
 4. **Verify Output:**
-   - In `read1_forward`, the quality at position 101 (2nd base) should be `!` (downscaled).
-   - In `read2_reverse`, the quality at position 118 (19th base) should be `!` (downscaled).
+   - In `read1_forward`, the quality string should be `1!11!1111111111111!1` (recalibrating positions 101, 104, and 118; leaving 105 and 115 untouched).
+   - In `read2_reverse`, the quality string should be `1!1111111111111!11!1` (recalibrating positions 101, 115, and 118; leaving 102 and 114 untouched).
    - All other bases should retain their original quality (`1`).

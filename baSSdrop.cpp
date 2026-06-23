@@ -75,8 +75,16 @@ int main(int argc, char* argv[]) {
         bool overlap_found = false;
 
         for (int i = 0; i < read.length(); i++) {
-            // ONLY recalibrate if within the specified distance from the start or end of the BAM read string
-            if (i < bases_from_start || i >= (read.length() - bases_from_end)) {
+            // ONLY recalibrate if within the specified distance from the start or end of the BAM read string.
+            // For reverse-complemented reads, the start and end of the original read are swapped in the BAM string.
+            bool in_trim_window = false;
+            if (!reverse) {
+                in_trim_window = (i < bases_from_start || i >= (read.length() - bases_from_end));
+            } else {
+                in_trim_window = (i < bases_from_end || i >= (read.length() - bases_from_start));
+            }
+
+            if (in_trim_window) {
                 int currentPos = position + i; // Assumes perfect match without indels/clipping
                 string snpType = (reverse) ? "GA" : "CT";
                 
