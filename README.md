@@ -42,7 +42,9 @@ chr2    505    T    C
 ```
 
 > [!NOTE]
-> A ready-to-use, pre-formatted SNP file based on the AADR v66 2 million SNP dataset is provided directly in this repository as [v66.ADDR.2M.snp](file:///rds/projects/h/haberm-dubai/ma17/BYBLOS_CAPTURE/baSSdrop/v66.ADDR.2M.snp).
+> A ready-to-use, pre-formatted SNP file based on the AADR v66 2 million SNP dataset is provided directly in this repository as [v66.ADDR.2M.snp](v66.ADDR.2M.snp).
+> 
+> In addition, a custom Y-chromosome specific SNP list is provided as [Y_chrom_yleaf.snp](Y_chrom_yleaf.snp). This contains **909,439** unique Y-chromosome SNPs integrated from the base set and all Yleaf databases (FTDNA, ISOGG, YFull v14 and v10). It is optimized to protect diagnostic SNPs required for Y-haplogroup classification during base quality recalibration.
 
 
 ## Pipeline Example
