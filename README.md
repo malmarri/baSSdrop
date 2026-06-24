@@ -34,12 +34,16 @@ samtools view -h input.bam | ./baSSdrop <path_to_SNP_file> <bases_from_start> <b
 3. **`<bases_from_end>`**: Number of bases from the 3' end of the **BAM sequence string** to recalibrate.
 
 ## Input SNP File Format
-The file should be tab- or space-separated and contain at least 4 columns. All known SNPs (e.g. 1240K) can be included, the program will only focus on the appropriate type of variant to downgrade base quality.
+The file should be tab- or space-separated and contain at least 4 columns: `[Chr] [Pos] [Ref] [Alt]`. All known SNPs (e.g. 1240K) can be included; the program will only focus on the appropriate transitions to downgrade base quality.
 ```text
 chr1    101    C    T
 chr1    108    G    A
 chr2    505    T    C
 ```
+
+> [!NOTE]
+> A ready-to-use, pre-formatted SNP file based on the AADR v66.2 2 million SNP dataset is provided directly in this repository as [v66.ADDR.2M.snp](file:///rds/projects/h/haberm-dubai/ma17/BYBLOS_CAPTURE/baSSdrop/v66.ADDR.2M.snp).
+
 
 ## Pipeline Example
 To recalibrate damage-prone transitions only within the terminal **5 bp** and **5 bp** of each read:
