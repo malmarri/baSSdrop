@@ -34,7 +34,7 @@ samtools view -h input.bam | ./baSSdrop <path_to_SNP_file> <bases_from_start> <b
 3. **`<bases_from_end>`**: Number of bases from the 3' end of the **BAM sequence string** to recalibrate.
 
 ## Input SNP File Format
-The file should be tab- or space-separated and contain at least 4 columns: `[Chr] [Pos] [Ref] [Alt]`. All known SNPs (e.g. 1240K) can be included; the program will only focus on the appropriate transitions to downgrade base quality.
+The file should be tab- or space-separated and contain at least 4 columns: `[Chr] [Pos] [Ref] [Alt]`. All known SNPs (e.g. 1240K, 1KG, HGDP etc ) can be included; the program will only focus on the appropriate transitions to downgrade base quality.
 ```text
 chr1    101    C    T
 chr1    108    G    A
