@@ -42,7 +42,7 @@ chr2    505    T    C
 ```
 
 > [!NOTE]
-> A ready-to-use, pre-formatted SNP file based on the AADR v66.2 2 million SNP dataset is provided directly in this repository as [v66.ADDR.2M.snp](file:///rds/projects/h/haberm-dubai/ma17/BYBLOS_CAPTURE/baSSdrop/v66.ADDR.2M.snp).
+> A ready-to-use, pre-formatted SNP file based on the AADR v66 2 million SNP dataset is provided directly in this repository as [v66.ADDR.2M.snp](file:///rds/projects/h/haberm-dubai/ma17/BYBLOS_CAPTURE/baSSdrop/v66.ADDR.2M.snp).
 
 
 ## Pipeline Example
