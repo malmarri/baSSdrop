@@ -31,7 +31,7 @@ samtools view -h input.bam | ./baSSdrop <path_to_SNP_file> <bases_from_start> <b
 ### Parameters
 1. **`<path_to_SNP_file>`**: A tab-separated file (no header) containing known SNPs: `[Chr] [Pos] [Ref] [Alt]`.
 2. **`<bases_from_start>`**: Number of bases from the **5' end of the original molecule** to recalibrate. For forward reads this corresponds to the start of the BAM sequence string; for reverse reads it corresponds to the end (since BAM stores the reverse complement). Soft-clipped and inserted bases are excluded from the window count.
-3. **`<bases_from_end>`**: Number of bases from the **3' end of the original molecule** to recalibrate. Symmetric with `<bases_from_start>` but applied to the opposite end.
+3. **`<bases_from_end>`**: Number of bases from the **3' end of the original molecule** to recalibrate.
 > [!NOTE]
 > Damage patterns are often not symmetrical across an ancient fragment, the parameters above allow you to control the number of bases from each end to recalibrate. It is recommended to assess the damage patterns for your sample empirically using a method like mapdamage /damageprofiler and then choose an appropriate number of bases for recalibration.
 
