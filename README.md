@@ -33,7 +33,7 @@ samtools view -h input.bam | ./baSSdrop <path_to_SNP_file> <bases_from_start> <b
 2. **`<bases_from_start>`**: Number of bases from the **5' end of the original molecule** to recalibrate. For forward reads this corresponds to the start of the BAM sequence string; for reverse reads it corresponds to the end (since BAM stores the reverse complement). Soft-clipped and inserted bases are excluded from the window count.
 3. **`<bases_from_end>`**: Number of bases from the **3' end of the original molecule** to recalibrate.
 > [!NOTE]
-> Damage patterns are often not symmetrical across an ancient fragment, the parameters above allow you to control the number of bases from each end to recalibrate. It is recommended to assess the damage patterns for your sample empirically using a method like mapdamage /damageprofiler and then choose an appropriate number of bases for recalibration.
+> Damage patterns are often not symmetrical across an ancient fragment, the parameters above allow you to control the number of bases from each end to recalibrate. It is recommended to assess the damage patterns for your sample empirically using a method like mapdamage/damageprofiler and then choose an appropriate number of bases for recalibration.
 
 ## Input SNP File Format
 The file should be tab- or space-separated and contain at least 4 columns: `[Chr] [Pos] [Ref] [Alt]`. All known SNPs (e.g. 1240K, 1KG, HGDP etc ) can be included; the program will only focus on the appropriate transitions to downgrade base quality.
