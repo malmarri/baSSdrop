@@ -6,7 +6,7 @@ In single-stranded ancient DNA libraries, post-mortem deamination (C &rarr; T) i
 `baSSdrop` targets these specific transition types at a user-defined set of SNP coordinates. It identifies bases that match the expected strand-specific damage profile, and downgrades their base quality score to **0** (`!`). This keeps a substantial amount of data that is lost in comparison to trimming bases from each end of a fragment to remove damage.
 
 ## Amended Version from Original by pontussk
-This version allows users to define how many bases from the 5′ and 3′ ends of the original molecule should be targeted for recalibration, instead of removing them across the whole fragment which is overly conservative. Position arithmetic is fully CIGAR-aware: soft-clipped and inserted bases are correctly excluded from the damage window, and deletions are handled so that downstream reference coordinates are never shifted.
+This version allows users to define how many bases from the 5′ and 3′ ends of the original molecule should be targeted for recalibration, instead of removing them across the whole fragment which is overly conservative. Position arithmetic is fully CIGAR-aware: soft-clipped, inserted and deleted bases are handled so that downstream reference coordinates are never shifted.
 
 ## Installation
 First, clone the repository to your local machine:
