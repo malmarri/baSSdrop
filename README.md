@@ -36,7 +36,7 @@ samtools view -h input.bam | ./baSSdrop <path_to_SNP_file> <bases_from_start> <b
 > Damage patterns are often not symmetrical across an ancient fragment, the parameters above allow you to control the number of bases from each end to recalibrate. It is recommended to assess the damage patterns for your sample empirically using a method like mapdamage/damageprofiler and then choose an appropriate number of bases for recalibration.
 
 ## Input SNP File Format
-The file should be tab- or space-separated and contain at least 4 columns: `[Chr] [Pos] [Ref] [Alt]`. All known SNPs (e.g. 1240K, 1KG, HGDP etc ) can be included; the program will only focus on the appropriate transitions to downgrade base quality.
+The file should be tab-separated and contain at least 4 columns: `[Chr] [Pos] [Ref] [Alt]`. All known SNPs (e.g. 1240K, 1000G, HGDP data) can be included; the program will only focus on the appropriate transitions to downgrade base quality.
 ```text
 chr1    101    C    T
 chr1    108    G    A
