@@ -6,7 +6,7 @@ In single-stranded ancient DNA libraries, post-mortem deamination (C &rarr; T) i
 `baSSdrop` targets these specific transition types at a user-defined set of SNP coordinates. It identifies bases that match the expected strand-specific damage profile, and downgrades their base quality score to **0** (`!`). This keeps a substantial amount of data that is lost in comparison to trimming bases from each end of a fragment to remove damage.
 
 ## Amended Version from Original by pontussk
-This version allows users to define how many bases from the start and end of the BAM read string should C>T transitions be targeted for recalibration, instead of removing them across the whole fragment which is overly conservative.
+This version allows users to define how many bases from the 5′ and 3′ ends of the original molecule should be targeted for recalibration, instead of removing them across the whole fragment which is overly conservative. Position arithmetic is fully CIGAR-aware: soft-clipped and inserted bases are correctly excluded from the damage window, and deletions are handled so that downstream reference coordinates are never shifted.
 
 ## Installation
 First, clone the repository to your local machine:
@@ -57,62 +57,20 @@ samtools view -h input.bam | \
 ```
 
 ## Testing
-To verify a successful installation and check functionality using the provided test data:
 
-1. **Clone and Enter Directory:**
-   ```bash
-   git clone https://github.com/malmarri/baSSdrop.git
-   cd baSSdrop
-   ```
+Two test files are provided in `test_data/`. Both use `known_snps.txt` (C→T transitions at refs 101, 104, 105, 115, 118) with trim values `5 2`.
 
-2. **Compile:**
-   ```bash
-   g++ -O3 baSSdrop.cpp -o baSSdrop
-   ```
+**Basic test** (`test.sam` — simple `20M` reads):
+```bash
+./baSSdrop test_data/known_snps.txt 5 2 < test_data/test.sam
+```
+- `read1_forward`: quality `1!11!1111111111111!1` (recalibrates refs 101, 104, 118)
+- `read2_reverse`: quality `1!1111111111111!11!1` (recalibrates refs 101, 115, 118)
 
-3. **Run Test:**
-   ```bash
-   ./baSSdrop test_data/known_snps.txt 5 2 < test_data/test.sam
-   ```
-
-4. **Verify Output:**
-   - In `read1_forward`, the quality string should be `1!11!1111111111111!1` (recalibrating positions 101, 104, and 118; leaving 105 and 115 untouched).
-   - In `read2_reverse`, the quality string should be `1!1111111111111!11!1` (recalibrating positions 101, 115, and 118; leaving 102 and 114 untouched).
-   - All other bases should retain their original quality (`1`).
-
-## Testing: CIGAR-aware recalibration (soft-clips and indels)
-
-A second test file (`test_data/test_indels.sam`) verifies that position arithmetic is correct for reads containing soft-clips, insertions, and deletions. Run with the same SNP file and trim values:
-
+**CIGAR test** (`test_indels.sam` — soft-clips, insertions, deletions):
 ```bash
 ./baSSdrop test_data/known_snps.txt 5 2 < test_data/test_indels.sam
 ```
-
-All three reads start at reference position 100, and the SNP file contains C→T transitions at positions **101, 104, 105, 115, and 118**.
-
-### read3_fwd_softclip (`3S17M`, pos=103)
-
-The first 3 bases are **soft-clipped** (unmapped). The POS field points to the first *aligned* base (ref=103), so the 5-base damage window covers **refs 103–107**, and the 2-base 3′ window covers **refs 118–119**.
-
-| Output | Quality string |
-|---|---|
-| **Correct (new code)** | `!!!1!!111111111111!1` — recalibrates refs 104 and 105 (in 5′ window) and ref 118 (in 3′ window); soft-clip qualities unchanged |
-| ~~Buggy (old code)~~ | `!!!11111111111111111` — window is offset by 3 soft-clipped bases; misses all three SNPs in the mapped damage zone |
-
-### read4_fwd_insertion (`2M1I17M`, pos=100)
-
-A **1-base insertion** is present at read index 2 (between refs 101 and 102). The inserted base has no reference coordinate and is skipped. All subsequent mapped bases shift by +1 in read-string space relative to reference space.
-
-| Output | Quality string |
-|---|---|
-| **Correct (new code)** | `1!11111111111111111!` — recalibrates ref 101 (index 1, in 5′ window) and ref 118 (index 19, in 3′ window) |
-| ~~Buggy (old code)~~ | `1!11!1111111111111!1` — falsely recalibrates index 4 (thinking it is at ref 104, actual ref 103) and index 18 (thinking ref 118, actual ref 117); misses the real ref 118 at index 19 |
-
-### read5_fwd_deletion (`2M1D17M`, pos=100)
-
-A **1-base deletion** at reference position 102 is skipped in the read string. All subsequent mapped bases shift by −1 in read-string space relative to reference space.
-
-| Output | Quality string |
-|---|---|
-| **Correct (new code)** | `1!1!!111111111111!1` — recalibrates ref 101 (index 1), ref 104 (index 3), ref 105 (index 4), and ref 118 (index 17) |
-| ~~Buggy (old code)~~ | `1!11!1111111111111!` — misses ref 104 at index 3 (computes ref 103); falsely recalibrates index 18 (computes ref 118, actual ref 119); misses ref 118 at index 17 |
+- `read3_fwd_softclip` (`3S17M`, pos=103): quality `!!!1!!111111111111!1` — 5′ window anchored to first mapped base (ref=103); recalibrates refs 104, 105, 118
+- `read4_fwd_insertion` (`2M1I17M`, pos=100): quality `1!11111111111111111!` — inserted base skipped; recalibrates refs 101, 118
+- `read5_fwd_deletion` (`2M1D17M`, pos=100): quality `1!1!!111111111111!1` — deletion advances reference correctly; recalibrates refs 101, 104, 105, 118
